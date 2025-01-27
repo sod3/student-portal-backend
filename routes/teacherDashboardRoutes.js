@@ -7,7 +7,7 @@ import {
   getMonthlyCalendar,
   getMarksProgress,
   getAnnouncements,
-} from '../controllers/dashboardController.js';
+} from '../controllers/TdashboardController.js';
 import auth from '../middleware/auth.js';
 
 const dashboardRouter = express.Router();
