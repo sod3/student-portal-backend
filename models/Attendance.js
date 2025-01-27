@@ -1,4 +1,3 @@
-// models/Attendance.js
 import { Schema, model } from 'mongoose';
 
 const attendanceSchema = new Schema({

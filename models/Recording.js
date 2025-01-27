@@ -1,4 +1,3 @@
-// models/Recording.js
 import { Schema, model } from 'mongoose';
 
 const recordingSchema = new Schema({

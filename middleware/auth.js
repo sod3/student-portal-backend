@@ -4,16 +4,21 @@ import dotenv from 'dotenv';
 
 dotenv.config();
 
-export default function(req, res, next) {
-  const token = req.header('Authorization')?.split(' ')[1];
-  if (!token) return res.status(401).json({ message: 'Access Denied' });
+const auth = (req, res, next) => {
+  const authHeader = req.headers.authorization;
+
+  if (!authHeader || !authHeader.startsWith('Bearer '))
+    return res.status(401).json({ message: 'Access Denied: No Token Provided' });
+
+  const token = authHeader.split(' ')[1];
 
   try {
-    const verified = jwt.verify(token, process.env.JWT_SECRET);
-    req.user = verified;
+    const decoded = jwt.verify(token, process.env.JWT_SECRET);
+    req.user = decoded; // { id: user._id, role: user.role }
     next();
-  } catch (err) {
+  } catch (error) {
     res.status(400).json({ message: 'Invalid Token' });
   }
 };
 
+export default auth;

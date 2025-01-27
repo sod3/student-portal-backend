@@ -1,4 +1,3 @@
-// models/JobBootcamp.js
 import mongoose from 'mongoose';
 const { Schema } = mongoose;
 
