@@ -1,19 +1,19 @@
+// routes/chatRoutes.js
 import express from 'express';
 import {
-  sendStudentMessage,
-  getStudentChat,
-  sendTeacherMessage,
-  getTeacherChat,
+  getAllTeachers,
+  getAllStudents,
+  getChatMessages,
+  sendMessage,
 } from '../controllers/chatController.js';
 import auth from '../middleware/auth.js';
 
-const router = express.Router();
+const chatRouter = express.Router();
 
-router.post('/student/:studentId/messages', auth, sendStudentMessage);
-router.get('/student/:studentId', auth, getStudentChat);
+chatRouter.get('/teachers', getAllTeachers); // Fetch list of teachers
+chatRouter.get('/students', getAllStudents); // Fetch list of students
 
-router.post('/teacher/:teacherId/messages', auth, sendTeacherMessage);
-router.get('/teacher/:teacherId', auth, getTeacherChat);
+chatRouter.get('/messages/:contactId', getChatMessages); // Fetch messages for a specific contact
+chatRouter.post('/messages/:contactId', sendMessage); // Send a message to a contact
 
-export default router;
-
+export default chatRouter;
