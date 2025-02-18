@@ -4,8 +4,8 @@ import auth from '../middleware/auth.js';
 
 const calendarRouter = express.Router();
 
-calendarRouter.post('/admin/event', auth, postAdminEvent);
-calendarRouter.get('/student/event', auth, getStudentEvent);
-calendarRouter.get('/timetable', auth, getClassTimetable);
+calendarRouter.post('/admin/event',  postAdminEvent);
+calendarRouter.get('/student/event',  getStudentEvent);
+calendarRouter.get('/timetable', getClassTimetable);
 
 export default calendarRouter;

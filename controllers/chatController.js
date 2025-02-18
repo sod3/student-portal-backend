@@ -1,23 +1,71 @@
-  export const getAllStudents = (req, res) => {
-    console.log('getAllStudents function called');
-  };
+import Teacher from "../models/Teacher.js";
+import Student from "../models/Student.js";
+import Message from "../models/Message.js";
 
-  const teachers = [
-    { id: 1, name: 'John Doe', email: 'john.doe@example.com' },
-    { id: 2, name: 'Jane Doe', email: 'jane.doe@example.com' },
-    { id: 3, name: 'Bob Smith', email: 'bob.smith@example.com' },
-  ];
-  
-  export const getAllTeachers = (req, res) => {
-    res.json(teachers);
-  };
-  
-  export const getChatMessages = (req, res) => {
-    console.log('getChatMessages function called');
-  };
+/**
+ * Fetch all teachers
+ */
+export const getAllTeachers = async (req, res) => {
+  try {
+    const teachers = await Teacher.find({}, "id name avatar lastSeen email");
+    res.status(200).json(teachers);
+  } catch (error) {
+    console.error("Error fetching teachers:", error);
+    res.status(500).json({ message: "Error fetching teachers" });
+  }
+};
 
-  export const sendMessage = (req, res) => {
-    console.log('sendMessage function called');
-  };
+/**
+ * Fetch all students
+ */
+export const getAllStudents = async (req, res) => {
+  try {
+    const students = await Student.find({}, "id name avatar lastSeen email");
+    res.status(200).json(students);
+  } catch (error) {
+    console.error("Error fetching students:", error);
+    res.status(500).json({ message: "Error fetching students" });
+  }
+};
 
+/**
+ * Get chat messages for a specific contact
+ */
+export const getChatMessages = async (req, res) => {
+  try {
+    const { contactId } = req.params;
+    const messages = await Message.find({ contactId }).sort({ createdAt: 1 });
 
+    res.status(200).json(messages);
+  } catch (error) {
+    console.error("Error fetching messages:", error);
+    res.status(500).json({ message: "Error fetching messages" });
+  }
+};
+
+/**
+ * Send a message to a contact
+ */
+export const sendMessage = async (req, res) => {
+  try {
+    const { contactId } = req.params;
+    const { sender, text } = req.body;
+
+    if (!sender || !text) {
+      return res.status(400).json({ message: "Sender and text are required" });
+    }
+
+    const newMessage = new Message({
+      contactId,
+      sender,
+      text,
+      createdAt: new Date(),
+    });
+
+    await newMessage.save();
+    res.status(201).json({ message: "Message sent successfully" });
+  } catch (error) {
+    console.error("Error sending message:", error);
+    res.status(500).json({ message: "Error sending message" });
+  }
+};

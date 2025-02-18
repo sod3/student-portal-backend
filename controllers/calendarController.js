@@ -1,7 +1,6 @@
-import Event from '../models/Event.js'; // Create an Event model
-import Timetable from '../models/Timetable.js'; // Create a Timetable model
+import Event from '../models/calander.js'; 
+import Timetable from '../models/Timetable.js'; 
 
-// Create an event for the admin
 export const postAdminEvent = async (req, res) => {
   try {
     const { title, start, end, color } = req.body;
