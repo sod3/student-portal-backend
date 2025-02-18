@@ -7,5 +7,5 @@ const calendarRouter = express.Router();
 calendarRouter.post('/admin/event',  postAdminEvent);
 calendarRouter.get('/student/event',  getStudentEvent);
 calendarRouter.get('/timetable', getClassTimetable);
-
+calanderRoutes.get('/admin/event',  postAdminEvent);
 export default calendarRouter;
