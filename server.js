@@ -12,6 +12,8 @@ import announcementsRouter from './routes/announcementRoutes.js';
 import gradesRouter from './routes/gradeRoutes.js';
 import transcriptRouter from './routes/transcriptRoutes.js';
 import authRouter from './routes/authRoutes.js';
+import classScheduleRouter from './routes/classScheduleRoutes.js';
+import progressReportRouter from './routes/progressReportRoutes.js';
 
 // Load environment variables
 dotenv.config();
@@ -37,7 +39,8 @@ app.use('/api/announcements', announcementsRouter);
 app.use('/api/grades', gradesRouter);
 app.use('/api/transcript', transcriptRouter);
 app.use('/api/auth', authRouter);
-
+app.use('/api/class-schedule', classScheduleRouter);
+app.use('/api/progress-report', progressReportRouter);
 // Database Connection
 const connectDB = async () => {
   try {
