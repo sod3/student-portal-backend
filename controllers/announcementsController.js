@@ -1,4 +1,4 @@
-import Announcement from '../models/announcement.js';
+import Announcement from '../models/Announcement.js';
 // import nodemailer from 'nodemailer'; // Uncomment and configure if using nodemailer
 
 // Create a new announcement
